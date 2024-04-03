@@ -1,0 +1,27 @@
+public class Overload {
+    
+    // Method to assign values with one argument
+    void assignValues(int value1) {
+        System.out.println("Assigning value1: " + value1);
+    }
+
+    // Method to assign values with two arguments
+    void assignValues(int value1, int value2) {
+        System.out.println("Assigning value1: " + value1 + ", value2: " + value2);
+    }
+
+    // Method to assign values with three arguments
+    void assignValues(int value1, int value2, int value3) {
+        System.out.println("Assigning value1: " + value1 + ", value2: " + value2 + ", value3: " + value3);
+    }
+
+    public static void main(String[] args) {
+        // Create an instance of the Overload class
+        Overload overloadObj = new Overload();
+
+        // Call the assignValues method with different numbers of arguments
+        overloadObj.assignValues(10);
+        overloadObj.assignValues(20, 30);
+        overloadObj.assignValues(40, 50, 60);
+    }
+}

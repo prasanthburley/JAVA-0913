@@ -1,0 +1,73 @@
+class CalculatorOperation implements Runnable {
+    private String operation;
+    private double operand1;
+    private double operand2;
+
+    // Constructor to initialize the operation and operands
+    public CalculatorOperation(String operation, double operand1, double operand2) {
+        this.operation = operation;
+        this.operand1 = operand1;
+        this.operand2 = operand2;
+    }
+
+    // Run method to execute the thread logic
+    @Override
+    public void run() {
+        switch (operation) {
+            case "add":
+                System.out.println("Thread for addition: " + operand1 + " + " + operand2 + " = " + (operand1 + operand2));
+                break;
+            case "subtract":
+                System.out.println("Thread for subtraction: " + operand1 + " - " + operand2 + " = " + (operand1 - operand2));
+                break;
+            case "multiply":
+                System.out.println("Thread for multiplication: " + operand1 + " * " + operand2 + " = " + (operand1 * operand2));
+                break;
+            case "divide":
+                if (operand2 != 0) {
+                    System.out.println("Thread for division: " + operand1 + " / " + operand2 + " = " + (operand1 / operand2));
+                } else {
+                    System.out.println("Cannot divide by zero.");
+                }
+                break;
+            default:
+                System.out.println("Invalid operation.");
+        }
+    }
+}
+
+public class MultiThreadCalculator {
+    public static void main(String[] args) {
+        // Create instances of CalculatorOperation for different operations
+        CalculatorOperation addOperation = new CalculatorOperation("add", 10.5, 5.2);
+        CalculatorOperation subtractOperation = new CalculatorOperation("subtract", 15.8, 7.3);
+        CalculatorOperation multiplyOperation = new CalculatorOperation("multiply", 4.0, 3.5);
+        CalculatorOperation divideOperation = new CalculatorOperation("divide", 20.0, 4.0);
+
+        // Create threads for each operation and start them
+        Thread addThread = new Thread(addOperation);
+        Thread subtractThread = new Thread(subtractOperation);
+        Thread multiplyThread = new Thread(multiplyOperation);
+        Thread divideThread = new Thread(divideOperation);
+
+        addThread.start();
+        subtractThread.start();
+        multiplyThread.start();
+        divideThread.start();
+
+        // Demonstrate that the main thread continues...
+        System.out.println("Main thread continues...");
+
+        // Wait for all threads to complete before proceeding
+        try {
+            addThread.join();
+            subtractThread.join();
+            multiplyThread.join();
+            divideThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Main thread completed.");
+    }
+}

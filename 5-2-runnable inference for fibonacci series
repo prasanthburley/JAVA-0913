@@ -1,0 +1,56 @@
+class FibonacciGenerator implements Runnable {
+    private int count;
+
+    // Constructor to initialize the count of Fibonacci numbers
+    public FibonacciGenerator(int count) {
+        this.count = count;
+    }
+
+    // Run method to execute the thread logic
+    @Override
+    public void run() {
+        int first = 0;
+        int second = 1;
+
+        System.out.print("Fibonacci Series for " + count + " terms: ");
+
+        for (int i = 0; i < count; i++) {
+            System.out.print(first + " ");
+
+            int next = first + second;
+            first = second;
+            second = next;
+
+            // Introducing a small delay for better visualization
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println();
+    }
+}
+
+public class FibonacciThreadExample {
+    public static void main(String[] args) {
+        // Create an instance of FibonacciGenerator for 5 terms
+        FibonacciGenerator fibonacciGenerator = new FibonacciGenerator(5);
+
+        // Create a thread using the instance and start it
+        Thread fibonacciThread = new Thread(fibonacciGenerator);
+        fibonacciThread.start();
+
+        // Demonstrate that the main thread continues...
+        System.out.println("Main thread continues...");
+
+        // Wait for the Fibonacci thread to complete before proceeding
+        try {
+            fibonacciThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Main thread completed.");
+    }
+}

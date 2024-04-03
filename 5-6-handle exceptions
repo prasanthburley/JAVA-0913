@@ -1,0 +1,24 @@
+public class MultiCatchExample {
+    public static void main(String[] args) {
+        try {
+            // Division by zero causing ArithmeticException
+            int result = 10 / 0;
+
+            // Accessing an index that is out of bounds causing ArrayIndexOutOfBoundsException
+            int[] arr = {1, 2, 3};
+            int element = arr[5];
+
+            // Attempting to invoke a method on a null reference causing NullPointerException
+            String str = null;
+            int length = str.length();
+        } catch (ArithmeticException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+            // Multi-catch block to handle different exceptions
+            System.out.println("Exception caught: " + e.getClass().getSimpleName());
+            e.printStackTrace();
+        } catch (Exception e) {
+            // General catch block (optional) for any other exceptions
+            System.out.println("General Exception caught: " + e.getClass().getSimpleName());
+            e.printStackTrace();
+        }
+    }
+}

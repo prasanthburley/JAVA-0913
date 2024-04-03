@@ -1,0 +1,70 @@
+class FibonacciThread implements Runnable {
+    // Run method to execute the thread logic for Fibonacci series
+    @Override
+    public void run() {
+        System.out.println("Fibonacci Series (First 10 terms):");
+        int first = 0, second = 1;
+
+        for (int i = 0; i < 10; i++) {
+            System.out.print(first + " ");
+            int next = first + second;
+            first = second;
+            second = next;
+
+            // Introducing a small delay for better visualization
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println();
+    }
+}
+
+class ReverseOrderThread implements Runnable {
+    // Run method to execute the thread logic for reverse order
+    @Override
+    public void run() {
+        System.out.println("Numbers from 1 to 10 in Reverse Order:");
+        for (int i = 10; i >= 1; i--) {
+            System.out.print(i + " ");
+
+            // Introducing a small delay for better visualization
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println();
+    }
+}
+
+public class MultiThreadExample {
+    public static void main(String[] args) {
+        // Create instances of the Runnable classes
+        FibonacciThread fibonacciThread = new FibonacciThread();
+        ReverseOrderThread reverseOrderThread = new ReverseOrderThread();
+
+        // Create threads for each operation and start them
+        Thread thread1 = new Thread(fibonacciThread);
+        Thread thread2 = new Thread(reverseOrderThread);
+
+        thread1.start();
+        thread2.start();
+
+        // Demonstrate that the main thread continues...
+        System.out.println("Main thread continues...");
+
+        // Wait for both threads to complete before proceeding
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Main thread completed.");
+    }
+}

@@ -1,0 +1,46 @@
+class MultiplicationTable extends Thread {
+    private int number;
+
+    // Constructor to initialize the number for the multiplication table
+    public MultiplicationTable(int number) {
+        this.number = number;
+    }
+
+    // Run method to execute the thread logic
+    @Override
+    public void run() {
+        System.out.println("Thread " + number + " started.");
+
+        // Display multiplication table for the given number
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(number + " X " + i + " = " + (number * i));
+        }
+
+        System.out.println("Thread " + number + " finished.");
+    }
+}
+
+public class MultiplicationTableExample {
+    public static void main(String[] args) {
+        // Create instances of MultiplicationTable for 5 and 10
+        MultiplicationTable tableFor5 = new MultiplicationTable(5);
+        MultiplicationTable tableFor10 = new MultiplicationTable(10);
+
+        // Start both threads
+        tableFor5.start();
+        tableFor10.start();
+
+        // Demonstrate thread life cycle stages
+        System.out.println("Main thread continues...");
+
+        // Wait for both threads to complete before proceeding
+        try {
+            tableFor5.join();
+            tableFor10.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Main thread completed.");
+    }
+}

@@ -1,0 +1,24 @@
+public class ArithmeticOperationExample {
+    public static void main(String[] args) {
+        try {
+            int num1 = 20;
+            int num2 = 0;
+
+            // Attempting division, which may throw ArithmeticException
+            int result = performDivision(num1, num2);
+
+            System.out.println("Result of division: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Exception caught: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    // Method to perform division and throw ArithmeticException for Division-by-Zero
+    private static int performDivision(int dividend, int divisor) {
+        if (divisor == 0) {
+            throw new ArithmeticException("Division by zero is not allowed.");
+        }
+        return dividend / divisor;
+    }
+}

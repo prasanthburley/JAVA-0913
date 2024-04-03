@@ -1,0 +1,58 @@
+class PrimeChecker implements Runnable {
+    private int number;
+
+    // Constructor to initialize the number to be checked
+    public PrimeChecker(int number) {
+        this.number = number;
+    }
+
+    // Run method to execute the thread logic
+    @Override
+    public void run() {
+        boolean isPrime = checkPrime(number);
+
+        if (isPrime) {
+            System.out.println(number + " is Prime");
+        } else {
+            System.out.println(number + " is not Prime");
+        }
+    }
+
+    // Method to check if a number is prime
+    private boolean checkPrime(int num) {
+        if (num <= 1) {
+            return false;
+        }
+
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+public class PrimeCheckThreadExample {
+    public static void main(String[] args) {
+        // Create an instance of PrimeChecker for the number 5
+        PrimeChecker primeChecker = new PrimeChecker(5);
+
+        // Create a thread using the instance and start it
+        Thread primeCheckThread = new Thread(primeChecker);
+        primeCheckThread.start();
+
+        // Demonstrate that the main thread continues...
+        System.out.println("Main thread continues...");
+
+        // Wait for the Prime Checker thread to complete before proceeding
+        try {
+            primeCheckThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Main thread completed.");
+    }
+}
